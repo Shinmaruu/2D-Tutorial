@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] float spawnRate = 2f;
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] float meteorSpawnRate = 30f;
+    [SerializeField] GameObject meteorPrefab;
 
     float xMin;
     float xMax;
@@ -17,6 +19,7 @@ public class Spawner : MonoBehaviour
         xMax = Camera.main.ViewportToWorldPoint(new Vector3(.9f, 0, 0)).x;
         ySpawn = Camera.main.ViewportToWorldPoint(new Vector3(0, 1.25f, 0)).y;
         InvokeRepeating("SpawnEnemy", 0, spawnRate);
+        InvokeRepeating("SpawnMeteor", 0, meteorSpawnRate);
     }
 
     // Update is called once per frame
@@ -28,5 +31,10 @@ public class Spawner : MonoBehaviour
     {
         float randx = Random.Range(xMin, xMax);
         Instantiate(enemyPrefab, new Vector3(randx, ySpawn, 0), Quaternion.identity);
+    }
+    void SpawnMeteor()
+    {
+        float randx = Random.Range(xMin, xMax);
+        Instantiate(meteorPrefab, new Vector3(randx, ySpawn, 0), Quaternion.identity);
     }
 }

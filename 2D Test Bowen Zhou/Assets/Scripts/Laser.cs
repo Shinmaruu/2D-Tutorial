@@ -5,6 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [SerializeField] float laserSpeed = 1.0f;
+    [SerializeField] GameObject shieldPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +16,15 @@ public class Laser : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(0, laserSpeed, 0) * Time.deltaTime;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //        Debug.Log("Collision");
+        if (collision.gameObject.tag == "PowerUp")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+            Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+        }
     }
 }

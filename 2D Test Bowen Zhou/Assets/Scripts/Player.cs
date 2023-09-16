@@ -20,7 +20,18 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(convertedPosition.x, yPosition, 0);
 
         if (Input.GetButtonDown("Fire Laser")){
-            Instantiate(laser, transform.position, Quaternion.identity);
+            Instantiate(laser, transform.position + new Vector3(0, .5f, 0), Quaternion.identity);
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //        Debug.Log("Collision");
+        if (collision.gameObject.tag == "PowerUp")
+        {
+            Destroy(collision.gameObject);
+
+        }
+        
+
     }
 }
